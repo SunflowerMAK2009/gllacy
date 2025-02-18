@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block extra_css %}
+{% endblock %}
+
+{% block content%}
+<main>
+
+    <form action="{% url 'login' %}" method="post" class="reg page_reg">
+        {% csrf_token %}
+        <b class="reg_lead">Вход в аккаунт</b>
+        <input type="text" placeholder="Введите логин" name="username">
+        <input type="password" placeholder="********" name="password">
+        <div class="enter_wraper">
+            <div class="reg_a">
+                <a href="" class="enter_link al reg_al">Забыли пароль?</a> <br>
+                <a href="{% url 'register' %}" class="enter_link al reg_al">Новая регистрация</a>
+            </div>
+            <button type="submit" class="button reg_btn">Войти</button>
+        </div>
+    </form>
+</main>
+{% endblock %}

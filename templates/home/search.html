@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск</title>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Kalnia+Glaze:wght@100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet">
+</head>
+<body>
+    <form action="{% url 'search' %}" method="get">
+        {% csrf_token %}
+        <input type="search" placeholder="Крем-брюле" name="search_value" class="input_search">
+    </form>
+    {% if products %}
+        <h1 class="container promo-title i">Результаты поиска: </h1>
+        <ul class="container ice_cream ice_cream_catalog">
+            {% for product in products %}
+                {% include 'product.html' %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="promo-title">Ничего не найдено</p>
+    {% endif %}
+
+    <script src="{% static 'js/script.js'%}"></script>
+</body>
+</html>

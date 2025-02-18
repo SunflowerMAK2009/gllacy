@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Catalog{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.css"/>
+{% endblock %}
+
+{% block header_class %} header_catalog {% endblock %}
+{% block content%}
+<main>
+    <ul class="container place">
+        <li><a href="" class="a">Главная</a></li>
+        <li><a href="" class="a">Каталог</a></li>
+        <li><a href="" class="a">Сливочное</a></li>
+    </ul>
+    <h1 class="container title_catalog">Сливочное мороженное</h1>
+    <section class="container">
+        <form action="" method="get" class="form_catalog">
+            {% csrf_token %}
+            <fieldset class="field field_sort">
+                <legend class="legend">
+                    Сортировка:
+                </legend>
+                <select name="sort" class="sort">
+                    <option value="popular">по популярности</option>
+                    <option value="cheep">сначала недорогие</option>
+                    <option value="expensive">сначала дорогие</option>
+                    <option value="fat">по жирности</option>
+                </select>
+            </fieldset>
+            <fieldset class="field field_range">
+                <legend class="legend">
+                    Цена: <output id="price-min">100</output> руб. - <output id="price-max">500</output> руб.
+                </legend>
+                <div id="price-slider" class="range_input"></div> 
+                <input type="hidden" id="min-price-input" name="min_price" value="100"> 
+                <input type="hidden" id="max-price-input" name="max_price" value="500">
+            </fieldset>
+            <fieldset class="field field_radio">
+                <legend class="legend">
+                    Жирность:
+                </legend>
+                <label>
+                    <input type="radio" name="fat" class="radio visually-hidden" value="zero">
+                    <span class="radio_fake"></span>
+                    <span>
+                        0%
+                    </span>
+                </label>
+                <label>
+                    <input type="radio" name="fat" class="radio visually-hidden" value="up_to_ten">
+                    <span class="radio_fake"></span>
+                    <span>
+                        до 10%
+                    </span>
+                </label>
+                <label>
+                    <input type="radio" name="fat" class="radio visually-hidden" value="up_to_thirty">
+                    <span class="radio_fake"></span>
+                    <span>
+                        до 30%
+                    </span>
+                </label>
+                <label>
+                    <input type="radio" name="fat" class="radio visually-hidden" value="above_thirty">
+                    <span class="radio_fake"></span>
+                    <span>
+                        выше 30%
+                    </span>
+                </label>
+            </fieldset>
+            <fieldset class="field check_field">
+                <legend class="legend">
+                    Наполнители:
+                </legend>
+                <label>
+                    <input type="checkbox" name="fillers" class="check visually-hidden" value="chocolate">
+                    <span class="checkbox"></span>
+                    <span>шоколадные</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="fillers" class="check visually-hidden" value="sugar_sprinkles">
+                    <span class="checkbox"></span>
+                    <span>сахарные присыпки</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="fillers" class="check visually-hidden" value="fruits">
+                    <span class="checkbox"></span>
+                    <span>фрукты</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="fillers" class="check visually-hidden" value="syrups">
+                    <span class="checkbox"></span>
+                    <span>сиропы</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="fillers" class="check visually-hidden" value="jams">
+                    <span class="checkbox"></span>
+                    <span>джемы</span>
+                </label>
+            </fieldset>
+            <button type="submit" class="field field_btn">Применить</button>
+        </form>
+    </section>
+    <section class="container">
+        <h2 class="visually-hidden">Хиты</h2>
+        <ul class="ice_cream ice_cream_catalog">
+            {% for product in products %}
+                {% include 'product.html' %}
+            {% endfor %}
+        </ul>
+        {% if name %}
+        <p>{{name}}</p>
+        {% elif name2 %}
+        <p>{{name2}}</p>
+        {% else %}
+        <p></p>
+        {% endif %}
+    </section>
+    <section class="container">
+        <ul class="pages">
+            <li><a href="" class="prev"></a></li>
+            <li><a href="" class="page page_is_active">1</a></li>
+            <li><a href="" class="page ">2</a></li>
+            <li><a href="" class="page ">3</a></li>
+            <li><a href="" class="page ">4</a></li>
+            <li><a href="" class="page ">5</a></li>
+            <li><a href="" class="next"></a></li>
+        </ul>
+    </section>
+
+</main>
+{% endblock %}
+{% block extra_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>
+    <script src="{% static 'js/range.js' %}"></script>
+{% endblock %}

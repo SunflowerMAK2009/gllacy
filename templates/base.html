@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title%}Gllacy{% endblock %}</title>
+    {% block extra_css %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kalnia+Glaze:wght@100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="container header {% block header_class %}{% endblock %}">
+        <a href="{% url 'home_url' %}" class="logo">
+            <img src="{% static 'svg/logo.svg' %}" alt="логотип Gllacy">
+        </a>
+        <nav>
+            <ul class="list">
+                <li class="catalog_li">
+                    <a href="" class="catalog_link">Каталог</a>
+                    <div class="new_products">
+                        <h3 class="products_title">Новинки</h3>
+                        <ul>
+                            <li><a href="{% url 'catalog_url' %}" class="products_link">Сливочное</a></li>
+                            <li><a href="" class="products_link">Щербеты</a></li>
+                            <li><a href="" class="products_link">Фруктовый лед</a></li>
+                            <li><a href="" class="products_link">Мелорин</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="">Доставка и оплата</a></li>
+                <li><a href="/admin">Админка</a></li>
+            </ul>
+        </nav>
+        <ul class="buttons">
+            <li>
+                <button class="search_btn"></button>
+                <div class="search-form header_modal">
+                    <form action="{% url 'search' %}" method="get">
+                        {% csrf_token %}
+                        <input type="search" placeholder="Крем-брюле" name="search_value" class="input_search">
+                    </form>
+                </div>
+            </li>
+            <li>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'edit_profile' %}" class="btn profile_btn">Профиль</a>
+                {% endif %}
+            </li>
+            <li>
+                {% if user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn enter_btn">Выход</button>
+                    </form>
+                {% else %}
+                    <button class="btn enter_btn" id="enter_btn">Вход</button>
+                {% endif %}
+                <div class="enter  header_modal">
+                    <form action="{% url 'login' %}" method="post">
+                        {% csrf_token %}
+                        <input type="text" placeholder="Введите логин" name="username" class="input_enter">
+                        <input type="password" placeholder="********" name="password" class="input_enter">
+                        <div class="enter_wraper">
+                            <button type="submit" class="button btn_enter al">Войти</button>
+                            <div>
+                                <a href="{% url 'password_reset' %}" class="enter_link al">Забыли пароль?</a> <br>
+                                <a href="{% url 'register' %}" class="enter_link al">Новая регистрация</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </li>
+            <li>
+                <button class="btn cart_button
+                {% if not cart_items %}
+                    cart_btn_empty
+                {% endif %}
+                ">
+                    {% if cart_items|length == 0 %}
+                        Пусто
+                    {% else %}
+                        {{ cart_items|length }} товар
+                    {% endif %}
+                </button>
+               <!-- <button class="btn basket_hover">1 товар</button> -->
+                <div class="cart_container basket header_modal">
+                    {% include 'cart.html' %}
+                </div>
+            </li>
+        </ul>
+        <div class="head_info">
+            <p class="time1">С 10 до 20, ежедневно</p>
+            <a href="tel:88124502525" class="num1 a">8 812 450-25-25</a>
+        </div>
+    </header>
+    {% block content %}{% endblock %}
+
+    <footer class="container footer footer_catalog">
+        <ul class="social_list">
+            <li>
+                <a href=""><img src="{% static 'svg/twitter.svg'%}" alt="Твитер"></a>
+            </li>
+            <li>
+                <a href=""><img src="{% static 'svg/instagram.svg'%}" alt="Инстаграм"></a>
+            </li>
+            <li>
+                <a href=""><img src="{% static 'svg/fb.svg'%}" alt="Facebook"></a>
+            </li>
+            <li>
+                <a href=""><img src="{% static 'svg/vk.svg'%}" alt="ВК"></a>
+            </li>
+        </ul>
+        <ul class="info">
+            <li>
+                <a href="" class="text4 a">Для поставщиков</a>
+            </li>
+            <li>
+                <a href="" class="text3 a">Наши документы</a>
+            </li>
+            <li>
+                <a href="" class="text3 a">О производстве</a>
+            </li>
+            <li>
+                <a href="" class="text3 a">Экологические стандарты</a>
+            </li>
+        </ul>
+        <div>
+            <img src="{% static 'svg/logo-htmlacademy.svg'%}" alt="HTML Академия" class="logo_html">
+            <p class="text5">Сделано в HTML Academy © 2019</p>
+        </div>
+    </footer>
+    <div class="dark_filter">
+    </div>
+    <script src="{% static 'js/script.js'%}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

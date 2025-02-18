@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block extra_css %}
+{% endblock %}
+
+{% block content%}
+<main>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form method="post" class="reg">
+        {% csrf_token %}
+        <b class="reg_lead">Профиль</b>
+        {{ profile_form }}
+        <button type="submit" name="profile_submit" class="button btn_reg">Сохранить</button>
+    </form>
+    <form method="post" class="reg">
+        {% csrf_token %}
+        <b class="reg_lead">Пароль</b>
+        {{ password_form }}
+        <button type="submit" name="password_submit" class="button btn_reg">Сохранить</button>
+    </form>
+</main>
+{% endblock %}

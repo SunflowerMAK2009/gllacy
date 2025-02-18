@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Registration{% endblock %}
+{% block extra_css %}
+{% endblock %}
+
+
+{% block content%}
+<main>
+    <form method="post" class="reg">
+        {% csrf_token %}
+        <b class="reg_lead">Регистрация</b>
+        {{ form }}
+        <button type="submit" class="button btn_reg">Зарегистрироваться</button>
+    </form>
+</main>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% load static %}
+
+<!-- <div class="basket">
+    {% for item in cart_items%}
+        <div class="product">
+            <a href="{% url 'delete_from_cart' item.product.id %}" class="b_close_basket delete_from_cart">удалить</a>
+            <img src="{{ item.product.image.url }}" alt="мороженное" class="mini_ice">
+            <p class="text_basket">{{ item.product.name }}</p>
+            <p class="text_basket">{{ item.number }} кг х <span class="price_b">{{ item.product.price }} руб.</span>{{ item.total_price }} руб</p>
+        </div>
+
+    {% endfor %}
+    <div class="price_product">
+        <p class="basket_price">Итого: {{ cart_total_sum }} руб.</p>
+        <button class="button btn_b">Оформить заказ</button>
+    </div>
+</div> -->
+
+<table>
+    {% for item in cart_items%}
+        <tr>
+            <td>
+                <a href="{% url 'delete_from_cart' item.product.id %}" class="b_close_basket delete_from_cart">удалить</a>
+            </td>
+            <td>
+                <img src="{{ item.product.image.url }}" alt="мороженное" class="mini_ice">
+            </td>
+            <td class="table_title">
+                <p class="text_basket">{{ item.product.name }}</p>
+            </td>
+            <td class="table_kg">
+                <p class="text_basket">{{ item.number }} кг х <span class="price_b">{{ item.product.price }} руб.</span></p>
+            </td>
+            <td>
+                <p class="text_basket">{{ item.total_price }} руб</p>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<div class="price_product">
+    <p class="basket_price">Итого: {{ cart_total_sum }} руб.</p>
+    <button class="button btn_b">Оформить заказ</button>
+</div>

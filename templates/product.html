@@ -1,0 +1,25 @@
+{% load static %}
+
+
+<li 
+data-popular = "{{ product.hit|yesno:'hit,nothit'}}"
+data-price = "{{ product.price }}"
+data-fat = "{{ product.fat }}"
+class="prd">
+    <img src="{{ product.image.url }}" alt="Мороженое {{ product.id }}">
+    <p class="price">{{product.price}}₽<span class="kg">/кг</span></p>
+    <h3 class="des_ice"><a href="" class="a">{{product.name|truncatechars:30}}</a></h3>
+    <a href="{% url 'add_to_cart' product.id %}" class="button btn_ice_cream_hover add_to_cart">Добавить!</a>
+</li>
+
+
+
+
+
+
+    {# <p>{{ product.date|date:"l N o" }}</p> #}
+<!--    <ul>-->
+<!--        {% for filler in product.fillers.all %}-->
+<!--            <li>{{ filler.name }}</li>-->
+<!--        {% endfor %}-->
+<!--    </ul>-->
